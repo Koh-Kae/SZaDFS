@@ -1,0 +1,189 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns="http://www.w3.org/1999/xhtml"
+      class="no-js fixed-layout">
+<head>
+    <title>Edit</title>
+    <div th:replace="fragments/head::head">
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="renderer" content="webkit">
+        <meta http-equiv="Cache-Control" content="no-siteapp" />
+        <link rel="icon" type="image/png" href="../static/assets/i/favicon.png">
+        <link rel="apple-touch-icon-precomposed" href="../static/assets/i/app-icon72x72@2x.png">
+        <meta name="apple-mobile-web-app-title" content="Amaze UI" />
+        <link rel="stylesheet" href="../static/assets/css/amazeui.min.css"/>
+        <link rel="stylesheet" href="../static/assets/css/admin.css">
+    </div>
+
+</head>
+<body>
+<!--[if lte IE 9]>
+<p class="browsehappy">你正在使用<strong>过时</strong>的浏览器，Amaze UI 暂不支持。 请 <a href="http://browsehappy.com/" target="_blank">升级浏览器</a>
+    以获得更好的体验！</p>
+<![endif]-->
+
+<header class="am-topbar  admin-header">
+    <div class="am-topbar-brand">
+        <strong>BDI</strong> <small> 后台系统</small>
+    </div>
+
+    <button class="am-topbar-btn am-topbar-toggle am-btn am-btn-sm am-btn-success am-show-sm-only" data-am-collapse="{target: '#topbar-collapse'}"><span class="am-sr-only">导航切换</span> <span class="am-icon-bars"></span></button>
+
+    <div class="am-collapse am-topbar-collapse" id="topbar-collapse">
+
+        <ul class="am-nav am-nav-pills am-topbar-nav am-topbar-right admin-header-list">
+            <li class="am-dropdown" data-am-dropdown>
+                <a class="am-dropdown-toggle" data-am-dropdown-toggle href="javascript:;">
+                    <span class="am-icon-users"></span> 管理员 <span class="am-icon-caret-down"></span>
+                </a>
+                <ul class="am-dropdown-content">
+                    <li><a href="#"><span class="am-icon-user"></span> 资料</a></li>
+                    <li><a href="#"><span class="am-icon-cog"></span> 设置</a></li>
+                    <li><a href="#"><span class="am-icon-power-off"></span> 退出</a></li>
+                </ul>
+            </li>
+            <li class="am-hide-sm-only"><a href="javascript:;" id="admin-fullscreen"><span class="am-icon-arrows-alt"></span> <span class="admin-fullText">开启全屏</span></a></li>
+        </ul>
+    </div>
+</header>
+
+<div  class="am-cf admin-main">
+    <!-- sidebar start -->
+    <div class="am-u-lg-3 am-u-md-3" style="margin-top: 1% ;height: 100%">
+        <div class="am-scrollable-vertical" style="height: 80%">
+            <ul class="am-list admin-sidebar-list" id="collapase-nav-1">
+                <li class="am-panel" th:each="map:${segmentEntityListMap}">
+                    <a th:text="${map.key.id}+' '+${map.key.segment_name}" href="javascript:void(0);" onclick="showinfo(this.id)" th:id="${map.key.segment_name}">
+                        <i class=" am-margin-left-sm"></i> 人员管理 <i class="am-icon-angle-right am-fr am-margin-right"></i>
+                    </a>
+                    <ul class="am-list admin-sidebar-sub"
+                        th:each="segmentEntity:${map.value}">
+                        <li>
+                            <a href="javascript:void(0);" onclick="showinfo(this.id)" th:text="${segmentEntity.id}+' '+${segmentEntity.segment_name}" th:id="${segmentEntity.segment_name}">
+                                <i class=" am-margin-left-sm">人员列表</i>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+
+        <div style="height: 20%">
+            <div class="am-form-group am-form-file">
+                <button type="button" class="am-btn am-btn-danger am-btn-sm">
+                    <i class="am-icon-cloud-upload"></i> 选择要上传的文件</button>
+                <input id="doc-form-file" type="file" multiple>
+            </div>
+            <div id="file-list"></div>
+            <button class="am-btn am-btn-default" ><a th:href="@{'/wopi/files/'+${filenameMd5}+'/contents'}">下载文档</a></button>
+        </div>
+    </div>
+    <!-- sidebar end -->
+
+    <!-- content start -->
+    <div class="am-u-lg-6 am-u-md-9 am-u-sm-12 admin-content" style="margin-top: 1%">
+            <iframe  src="http://172.31.238.77/we/wordeditorframe.aspx?WOPISrc=http%3a%2f%2f172.31.238.70%3a8080%2fwopi%2ffiles%2f111111.docx"
+                     th:src="@{${office_online_addr}+${filenameMd5}}"
+                     width="100%" height="97%" frameborder="0" >
+            </iframe>
+    </div>
+    <div class="am-u-lg-3" style="margin-top: 1%">
+        <div data-am-widget="tabs"
+             class="am-tabs am-tabs-d2">
+            <ul class="am-tabs-nav am-cf" id="myTabs">
+                <li class="am-active"><a href="[data-tab-panel-0]">相似文档</a></li>
+                <li class=""><a href="[data-tab-panel-1]">相关段落</a></li>
+            </ul>
+            <div class="am-tabs-bd">
+                <div data-tab-panel-0 class="am-tab-panel am-active" id="home">
+                    相似文档测试
+                </div>
+                <div data-tab-panel-1 class="am-tab-panel " id="profile">
+                    相似段落测试
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+<div th:replace="fragments/script::script">
+    <!--[if lt IE 9]>
+    <script src="http://libs.baidu.com/jquery/1.11.1/jquery.min.js"></script>
+    <script src="http://cdn.staticfile.org/modernizr/2.8.3/modernizr.js"></script>
+    <script src="../static/assets/js/amazeui.ie8polyfill.min.js"></script>
+    <![endif]-->
+    <!--[if (gte IE 9)|!(IE)]>&lt;!&ndash;>
+    <script src="../static/assets/js/jquery.min.js"></script>
+    <!--<![endif]-->
+    <script src="../static/assets/js/amazeui.min.js"></script>
+    <script src="../static/assets/js/app.js"></script>
+</div>
+<script src="assets/js/my.js"></script>
+
+
+<script th:inline="javascript">
+  $(function(){
+      var name = /*[[${reportEntity.ProjectName}]]*/ "Gertrud Kiwifruit";
+      var docname=/*[[${filenameMd5}]]*/ "111111.docx"
+      //创建request对象
+      var request = new XMLHttpRequest();
+      //
+      // 发送请求:
+      request.open('GET', "/solr/"+name,true);
+      //注册相关事件回调处理函数
+      request.onreadystatechange=function () {
+          if (request.readyState === 4) { // 成功完成
+              // 判断响应结果:
+              if (request.status === 200) {
+                  // 成功，通过responseText拿到响应的文本:
+                  return success(request.responseText);
+              } else {
+                  // 失败，根据响应码判断失败原因:
+                  return fail(request.status);
+              }
+          } else {
+              // HTTP请求还在继续...
+          }
+      }
+      request.send();
+
+      function success(text) {
+          var jsonData=JSON.parse(text);
+          var element = document.getElementById('home');
+          element.innerHTML=null;
+          for(var i=0;i<jsonData.length;i++){
+              var json=jsonData[i];
+              var projectName=json.projectName;
+              var projectCity=json.projectCity;
+              var projectProvince=json.projectProvince;
+              var ul=document.createElement("ul");
+              ul.setAttribute("class","am-list");
+              var li=document.createElement("li");
+              li.setAttribute("class","am-g");
+              var a=document.createElement("a");
+              a.setAttribute("class","am-list-item-hd am-text-truncate");
+              a.setAttribute("href","/show/"+docname+"/"+projectName);
+              a.innerHTML=projectName;
+              var span=document.createElement("span");
+              span.setAttribute("class","am-article-meta");
+              span.innerHTML=projectCity+'-'+projectProvince;
+
+              li.appendChild(a);
+              li.appendChild(span);
+              ul.appendChild(li);
+              element.appendChild(ul);
+          }
+
+
+      }
+
+      function fail(code) {
+          var textarea = document.getElementById('profile');
+          textarea.innerText = 'Error code: ' + code;
+      }
+  });
+</script>
+</body>
+</html>

@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Home</title>
+    <div th:replace="fragments/head::head">
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="renderer" content="webkit">
+        <meta http-equiv="Cache-Control" content="no-siteapp" />
+        <link rel="icon" type="image/png" href="../static/assets/i/favicon.png">
+        <link rel="apple-touch-icon-precomposed" href="../static/assets/i/app-icon72x72@2x.png">
+        <meta name="apple-mobile-web-app-title" content="Amaze UI" />
+        <link rel="stylesheet" href="../static/assets/css/amazeui.min.css"/>
+        <link rel="stylesheet" href="../static/assets/css/admin.css">
+    </div>
+  <style>
+    .get {
+      background: #1E5B94;
+      color: #fff;
+      text-align: center;
+      padding: 100px 0;
+    }
+
+    .get-title {
+      font-size: 200%;
+      border: 2px solid #fff;
+      padding: 20px;
+      display: inline-block;
+    }
+
+    .about {
+      text-align: center;
+      background: #fff;
+      padding: 40px 0;
+      color: #7f8c8d;
+    }
+
+    .about-color {
+      color: #34495e;
+    }
+
+
+    .footer p {
+      color: #7f8c8d;
+      margin: 0;
+      padding: 15px 0;
+      text-align: center;
+      background: #2d3e50;
+    }
+  </style>
+</head>
+<body>
+<header class="am-topbar  admin-header">
+  <div class="am-topbar-brand">
+    <strong>BDI</strong> <small> 后台系统</small>
+  </div>
+
+  <button class="am-topbar-btn am-topbar-toggle am-btn am-btn-sm am-btn-success am-show-sm-only" data-am-collapse="{target: '#topbar-collapse'}"><span class="am-sr-only">导航切换</span> <span class="am-icon-bars"></span></button>
+
+  <div class="am-collapse am-topbar-collapse" id="topbar-collapse">
+
+    <ul class="am-nav am-nav-pills am-topbar-nav am-topbar-right admin-header-list">
+      <li><a href="javascript:;"><span class="am-icon-envelope-o"></span> 收件箱 <span class="am-badge am-badge-warning">5</span></a></li>
+      <li class="am-dropdown" data-am-dropdown>
+        <a class="am-dropdown-toggle" data-am-dropdown-toggle href="javascript:;">
+          <span class="am-icon-users"></span> 管理员 <span class="am-icon-caret-down"></span>
+        </a>
+        <ul class="am-dropdown-content">
+          <li><a href="#"><span class="am-icon-user"></span> 资料</a></li>
+          <li><a href="#"><span class="am-icon-cog"></span> 设置</a></li>
+          <li><a href="#"><span class="am-icon-power-off"></span> 退出</a></li>
+        </ul>
+      </li>
+      <li class="am-hide-sm-only"><a href="javascript:;" id="admin-fullscreen"><span class="am-icon-arrows-alt"></span> <span class="admin-fullText">开启全屏</span></a></li>
+    </ul>
+  </div>
+</header>
+
+
+<div class="get">
+  <div class="am-g">
+    <div class="am-u-lg-12">
+      <h1 class="get-title">环评文档辅助写作系统</h1>
+    </div>
+  </div>
+</div>
+
+<div class="about">
+  <div class="am-g am-container">
+    <div class="am-u-lg-3 am-u-md-4" style="visibility: hidden"> test</div>
+    <div class="am-u-lg-6 am-u-md-4 am-u-sm-12">
+          <form class="am-form" method="post" action="/eidtpage">
+            <label for="project_name" class="about-color">项目名称</label>
+            <input id="project_name" name="name" type="text">
+            <br/>
+            <label for="domain" class="about-color">项目领域</label>
+            <input id="domain" name="domain" type="text">
+            <br/>
+            <label for="province" class="about-color">项目所在省份</label>
+            <input id="province" name="province" type="text">
+            <br/>
+            <label for="city" class="about-color">项目所在城市</label>
+            <input id="city" name="city" type="text">
+            <br/>
+            <button type="submit" class="am-btn am-btn-primary am-btn-sm"><i class="am-icon-check"></i> 提 交</button>
+          </form>
+        </div>
+    <div class="am-u-lg-3 am-u-md-4" style="visibility: hidden">test</div>
+  </div>
+</div>
+
+
+
+<div th:replace="fragments/script::script">
+    <!--[if lt IE 9]>
+    <script src="http://libs.baidu.com/jquery/1.11.1/jquery.min.js"></script>
+    <script src="http://cdn.staticfile.org/modernizr/2.8.3/modernizr.js"></script>
+    <script src="../static/assets/js/amazeui.ie8polyfill.min.js"></script>
+    <![endif]-->
+    <!--[if (gte IE 9)|!(IE)]>&lt;!&ndash;>
+<script src="../static/assets/js/jquery.min.js"></script>
+<!--<![endif]-->
+    <script src="../static/assets/js/amazeui.min.js"></script>
+    <script src="../static/assets/js/app.js"></script>
+</div>
+</body>
+</html>
